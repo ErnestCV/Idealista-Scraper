@@ -5,6 +5,8 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -43,14 +45,16 @@ public class Main {
         }
 
         //Comprovem el nombre d'habitatges
-        System.out.println(prices.size());
+        System.out.println("Nombre d'habitatges: " + prices.size());
 
         //Mitjana de preus
-        System.out.println(prices.stream().mapToDouble(a -> a).average().orElse(0));
+        double average = prices.stream().mapToDouble(a -> a).average().orElse(0);
+        NumberFormat formatter = new DecimalFormat("#0.00");
+        System.out.println("Mitjana de preus: " + formatter.format(average) + " euros");
 
         //Mediana de preus
         Collections.sort(prices);
-        System.out.println(percentile(prices, 50));
+        System.out.println("Mediana de preus: " + percentile(prices, 50) + " euros");
     }
 
     public static HtmlPage getDocument(String url) {
